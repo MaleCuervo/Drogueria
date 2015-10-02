@@ -1,22 +1,35 @@
 #encoding: latin1
 
 import csv
+import sys
 
 def cargar_archivo(nombre_archivo):
-    ''' Recibe el nombre de un archivo y devuelve una estructura de datos 
+    ''' Recibe el nombre de un archivo, chequea que exista y que sea un csv y devuelve un diccionario 
     con su contenido. 
         En caso de error levanta una RunnableException con un mensaje 
     descriptivo.'''
     
-    nombre_archivo = open("./archivos_prueba/archivo_valido_1.csv")    
-    
-    
-    return (nombre_archivo)                                          # regreso la lista con el menu principal  
-    
-    raise NotImplementedError ("tenemos un error")
-    
+    #chequea que el archivo exista,trata de abrir el archivo, si no puede devuelve error y sale del programa 
+    try:
+        archivo = open(nombre_archivo)
+
+    except IOError:
+        print "No se pudo leer el archivo", nombre_archivo,", chequee que el mismo exista"
+        sys.exit()
+
+    #de existir el archivo ...
+    with archivo:
+        #chequea que sea una extensión válida y abre y lee el archivo, devuelve un diccionario
+        if nombre_archivo.lower().endswith('.csv'):
+            archivo = open(nombre_archivo)  
+            archivo_csv = csv.DictReader(archivo) 
+            return (archivo_csv)
+
+        #sino devuelve error de extension   
+        else:
+            raise RunnableException ("Debe cargar un archivo con extension csv")
+        
  
-    
 
 def obtener_clientes_con_nombre_incompleto(archivo, nombre_cliente_incompleto):
     ''' Dado el contenido del archivo de datos y un nombre de cliente 
@@ -24,13 +37,13 @@ def obtener_clientes_con_nombre_incompleto(archivo, nombre_cliente_incompleto):
     repetir (obtenidos de la columna CLIENTE del archivo) cuyo nombre 
     contenga la cadena incompleta pasada por parámetro.
     '''
-    archivo = open("./archivos_prueba/archivo_valido_1.csv")
+    #esta buscando en la lista por nombre incompleto
+    for row in archivo: 
+        #regresa lista con el indice del nombre
+        #return ("CLIENTE") 
 
-    nombre_cliente_incompleto = raw_input()
-    
-    for nombre_cliente_incompleto in archivo:               #esta buscando en la lista por nombre imcompleto
-       return ("CLIENTE")                                     #regresa lista con el indice del nombre 
-    else:                                                   # si no esta el elemento me devuelve un mensaje
+     # si no esta el elemento me devuelve un mensaje                                    
+    else:                                                  
         return ("no esta su nombre")
     
     raise NotImplementedError
@@ -43,9 +56,7 @@ def obtener_productos_con_nombre_incompleto(archivo, nombre_producto_incompleto)
     incompleto, devuelve una lista con todos los nombres de productos sin 
     repetir (obtenidos de la columna PRODUCTO del archivo) cuyo nombre 
     contenga la cadena incompleta pasada por parámetro.
-    '''
-    archivo = open("./archivos_prueba/archivo_valido_1.csv")
-                            
+    '''                            
                              
     nombre_producto_incompleto = raw_input()
     
@@ -83,11 +94,7 @@ def obtener_clientes_de_producto(archivo, nombre_producto):
     ''' Dado el contenido del archivo de datos y el nombre de un producto, 
     devuelve una lista de todos los compradores del producto, sin repetir.
     '''
-   
-    archivo =  open("./archivos_prueba/archivo_valido_1.csv") 
-    archivo1 =  open("./archivos_prueba/archivo_valido_2.csv") 
- 
-    
+  
     nombre_producto =  raw_input()
     
     for nombre_producto in archivo,archivo1:                                       #busca en lista
