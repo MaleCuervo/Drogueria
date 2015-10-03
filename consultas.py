@@ -3,6 +3,7 @@
 import csv
 import sys
 
+#función hecha por M.Alejandra y Eliana
 def cargar_archivo(nombre_archivo):
     ''' Recibe el nombre de un archivo, chequea que exista y que sea un csv y devuelve un diccionario 
     con su contenido. 
@@ -14,7 +15,7 @@ def cargar_archivo(nombre_archivo):
         archivo = open(nombre_archivo)
 
     except IOError:
-        print "No se pudo leer el archivo", nombre_archivo,", chequee que el mismo exista"
+        print ("No se pudo leer el archivo", nombre_archivo,", chequee que el mismo exista")
         sys.exit()
 
     #de existir el archivo ...
@@ -23,7 +24,9 @@ def cargar_archivo(nombre_archivo):
         if nombre_archivo.lower().endswith('.csv'):
             archivo = open(nombre_archivo)  
             archivo_csv = csv.DictReader(archivo) 
-            return (archivo_csv)
+            #for row in archivo_csv:
+            #    print(row)
+            return archivo_csv
 
         #sino devuelve error de extension   
         else:
@@ -37,16 +40,20 @@ def obtener_clientes_con_nombre_incompleto(archivo, nombre_cliente_incompleto):
     repetir (obtenidos de la columna CLIENTE del archivo) cuyo nombre 
     contenga la cadena incompleta pasada por parámetro.
     '''
-    #esta buscando en la lista por nombre incompleto
-    for row in archivo: 
-        #regresa lista con el indice del nombre
-        #return ("CLIENTE") 
+    nombre_cliente_buscado = []
+    #recorre el diccionario por fila
+    for row in archivo:
+        #si el nombre incompleto se encuentra en el valor de la columna cliente
+        if nombre_cliente_incompleto in row["CLIENTE"]:
+            #Si ese nombre no fue incluido en la lista lo agregega, sino no
+            if row["CLIENTE"] not in nombre_cliente_buscado:
+                nombre_cliente_buscado.append(row["CLIENTE"])
+    #devuelve lista final con todos los posibles nombres
+    #print(nombre_cliente_buscado)
+    return nombre_cliente_buscado
 
-     # si no esta el elemento me devuelve un mensaje                                    
-    else:                                                  
-        return ("no esta su nombre")
-    
-    raise NotImplementedError
+    #falta hacer el error
+    #raise NotImplementedError
     
 
 
@@ -57,13 +64,7 @@ def obtener_productos_con_nombre_incompleto(archivo, nombre_producto_incompleto)
     repetir (obtenidos de la columna PRODUCTO del archivo) cuyo nombre 
     contenga la cadena incompleta pasada por parámetro.
     '''                            
-                             
-    nombre_producto_incompleto = raw_input()
-    
-    for nombre_producto_incompleto in archivo:                  #esta buscando en la lista por nombre imcompleto
-        return ("PRODUCTO")                                      #regresa lista con el indice del nombre 
-    else:                                                    
-        return ("no existe el producto")                         # si no esta el elemento me devuelve un mensaje
+                        # si no esta el elemento me devuelve un mensaje
             
     raise NotImplementedError
     
@@ -75,17 +76,6 @@ def obtener_productos_comprados_por_cliente(archivo, nombre_cliente):
     devuelve una lista de todos los nombres de productos comprados por
     el cliente, sin repetir.
     '''
-    archivo =  open("./archivos_prueba/archivo_valido_1.csv") 
-    archivo1 =  open("./archivos_prueba/archivo_valido_2.csv") 
- 
-    
-    nombre_cliente = raw_input() 
-    
-    
-    for nombre_cliente in archivo,archivo1:                                       #busca en lista
-        return ("PRODUCTO")    #regresa lista
-         
-    
     raise NotImplementedError
    
      
@@ -95,10 +85,6 @@ def obtener_clientes_de_producto(archivo, nombre_producto):
     devuelve una lista de todos los compradores del producto, sin repetir.
     '''
   
-    nombre_producto =  raw_input()
-    
-    for nombre_producto in archivo,archivo1:                                       #busca en lista
-        return ("CLIENTE")                                                  #regresa lista
     
     raise NotImplementedError
     
@@ -123,4 +109,3 @@ def obtener_clientes_mas_gastadores(archivo, cantidad_maxima_clientes):
    
     
     raise NotImplementedError 
-    

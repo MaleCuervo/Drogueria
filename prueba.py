@@ -5,6 +5,6 @@ import consultas
 
 archivo = "prueba.csv"
 
-consultas.cargar_archivo(archivo)
+archivo_abierto = consultas.cargar_archivo(archivo)
 
-consultas.obtener_clientes_con_nombre_incompleto(archivo,"C1")
+consultas.obtener_clientes_con_nombre_incompleto(archivo_abierto,"C")
