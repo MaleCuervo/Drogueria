@@ -48,12 +48,15 @@ def obtener_clientes_con_nombre_incompleto(archivo, nombre_cliente_incompleto):
             #Si ese nombre no fue incluido en la lista lo agregega, sino no
             if row["CLIENTE"] not in nombre_cliente_buscado:
                 nombre_cliente_buscado.append(row["CLIENTE"])
-    #devuelve lista final con todos los posibles nombres
-    #print(nombre_cliente_buscado)
-    return nombre_cliente_buscado
 
-    #falta hacer el error
-    #raise NotImplementedError
+    if len(nombre_cliente_buscado) == 0:
+        #falta hacer el error
+        raise ValueError("No se encontró ningún registro con ese nombre")
+
+    else:
+        #devuelve lista final con todos los posibles nombres
+        #print(nombre_cliente_buscado)
+        return nombre_cliente_buscado
     
 
 

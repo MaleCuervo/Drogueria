@@ -7,4 +7,4 @@ archivo = "prueba.csv"
 
 archivo_abierto = consultas.cargar_archivo(archivo)
 
-consultas.obtener_clientes_con_nombre_incompleto(archivo_abierto,"C")
+consultas.obtener_clientes_con_nombre_incompleto(archivo_abierto,"P")
