@@ -9,6 +9,7 @@ def obtener_nombre_archivo():
     actual del sistema.
     '''
     
+    archivo = open(nombre_archivo)
     
     return "resultados_" + time.strftime("%m%d_%H%M%S") + ".txt"
         
@@ -33,7 +34,7 @@ def exportar_resultados(resultados, cabecera, descripcion):
     #segunda consulta
     Mostrar los n clientes que más gastaron
     
-    Descripcion = estos son los  clientes que mas gastaron
+    Descripcion = estos son los  productos más vendidos 
     Cabecera = ("CLIENTE","PRODUCTO","CODIGO","CANTIDAD","PRECIO")
     Resultados = [Cabecera]
     

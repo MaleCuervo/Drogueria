@@ -67,7 +67,7 @@ def obtener_productos_con_nombre_incompleto(archivo, nombre_producto_incompleto)
     repetir (obtenidos de la columna PRODUCTO del archivo) cuyo nombre 
     contenga la cadena incompleta pasada por parámetro.
     '''                            
-                     
+                        # si no esta el elemento me devuelve un mensaje
             
     raise NotImplementedError
     
