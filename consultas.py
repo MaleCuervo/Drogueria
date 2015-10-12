@@ -180,4 +180,3 @@ def obtener_clientes_mas_gastadores(archivo, cantidad_maxima_clientes):
     
     raise NotImplementedError 
 
-            
