@@ -2,6 +2,7 @@
 
 import csv
 import sys
+from operator import itemgetter
 
 def obtener_indice(headers, nombre_indice):
     """ funcion de obtener indice para evitar tener que hacerlo cada vez que se necesita saber un header especifico,
@@ -74,10 +75,13 @@ def cargar_archivo(nombre_archivo):
                 raise ValueError ("El precio no puede ser una cadena de texto", row)
 
         return archivo
+        archivo.close()
 
     #sino devuelve error de extension   
     else:
         raise RunnableException ("Debe cargar un archivo con extension csv")
+
+
 
 def obtener_clientes_con_nombre_incompleto(archivo, nombre_cliente_incompleto):
     ''' Dado el contenido del archivo de datos y un nombre de cliente 
@@ -102,8 +106,8 @@ def obtener_clientes_con_nombre_incompleto(archivo, nombre_cliente_incompleto):
             if row[campo_cliente] not in nombre_cliente_buscado:
                 nombre_cliente_buscado.append(row[campo_cliente])
 
-    if len(nombre_cliente_buscado) == 0:
-        raise ValueError("No se encontro ningun registro con ese nombre")
+    #if len(nombre_cliente_buscado) == 0:
+        #raise ValueError("No se encontro ningun registro con ese nombre")
 
     else:
         #devuelve lista final con todos los posibles nombres
@@ -133,8 +137,8 @@ def obtener_productos_con_nombre_incompleto(archivo, nombre_producto_incompleto)
             if row[campo_producto] not in nombre_producto_buscado:
                 nombre_producto_buscado.append(row[campo_producto])
 
-    if len(nombre_producto_buscado) == 0:
-        raise ValueError("No se encontro ningun registro con ese nombre")
+    #if len(nombre_producto_buscado) == 0:
+     #   raise ValueError("No se encontro ningun registro con ese nombre")
 
     else:
         #devuelve lista final con todos los posibles nombres
@@ -146,7 +150,32 @@ def obtener_productos_comprados_por_cliente(archivo, nombre_cliente):
     devuelve una lista de todos los nombres de productos comprados por
     el cliente, sin repetir.
     '''
-    raise NotImplementedError
+
+    #nombre_cliente = nombre_producto.upper()
+
+    #lee el archivo dado
+    archivo_csv = obtener_reader(archivo)
+
+    headers = next(archivo_csv)
+    campo_producto = obtener_indice(headers, "PRODUCTO")
+    campo_cliente = obtener_indice(headers, "CLIENTE")
+    productos_comprados = []
+
+    #recorre los datos 
+    for row in archivo_csv:
+
+        #busca el nombre dado en la columna cliente
+        if nombre_cliente in row[campo_cliente]:
+            #si el producto de esa fila no fue agregado anteriormente lo agrega
+            if row[campo_producto] not in productos_comprados:
+                productos_comprados.append(row[campo_producto])
+
+    #if len(productos_comprados) == 0:
+    #    raise ValueError("No se encontro ningun registro con ese nombre")
+
+    else:
+        #devuelve lista final con todos los productos comprados por el nombre indicado
+        return productos_comprados 
    
      
 
@@ -155,28 +184,102 @@ def obtener_clientes_de_producto(archivo, nombre_producto):
     devuelve una lista de todos los compradores del producto, sin repetir.
     '''
   
+    #nombre_producto = nombre_producto.upper()
     
-    raise NotImplementedError
+    #lee el archivo dado
+    archivo_csv = obtener_reader(archivo)
+
+    headers = next(archivo_csv)
+    campo_producto = obtener_indice(headers, "PRODUCTO")
+    campo_cliente = obtener_indice(headers, "CLIENTE")
+    clientes_producto = []
+
+    #recorre los datos 
+    for row in archivo_csv:
+
+        #busca el nombre dado en la columna cliente
+        if nombre_producto in row[campo_producto]:
+            #si el cliente de esa fila no fue agregado anteriormente lo agrega
+            if row[campo_cliente] not in clientes_producto:
+               clientes_producto.append(row[campo_cliente])
+
+    #if len(clientes_producto) == 0:
+     #   raise ValueError("No se encontro ningun registro con ese nombre")
+
+    else:
+        #devuelve lista final con todos los clientes que compraron ese producto
+        return clientes_producto 
     
     
     
 def obtener_productos_mas_vendidos(archivo, cantidad_maxima_productos):
     ''' Devuelve una lista de tuplas de tamaño pasado por parámetro que 
     representan los productos más vendidos, conteniendo como primer elemento 
-    el nombre del producto y como segundo elemento la cantidad de ventas. 
+    el nombre del producto y como segundo elemento la cantidad de ventas.
     '''
-    
-    
-    
-    raise NotImplementedError
-    
+
+    archivo_csv = obtener_reader(archivo)
+
+    lista_productos = {}
+    lista_productos_mas_vendidos = []
+
+    headers = next(archivo_csv)
+    campo_producto = obtener_indice(headers, "PRODUCTO")
+    campo_cantidad = obtener_indice(headers, "CANTIDAD")
+
+    #se genera un dict con todos los productos y cantidad total
+    for row in archivo_csv:
+        if row[campo_producto] not in lista_productos:
+            lista_productos[row[campo_producto]] = int(row[campo_cantidad])
+        else:
+            lista_productos[row[campo_producto]] += int(row[campo_cantidad])
+
+    #se separa el dict en tuplas y se une de nuevo en una lista
+    for item in lista_productos.items():
+        lista_productos_mas_vendidos.append(item)
+
+    #orden de la lista de mayor a menor
+    lista_productos_mas_vendidos = sorted(lista_productos_mas_vendidos,key=itemgetter(1), reverse = True)
+
+    #chequeo la cantidad maxima de productos a mostrar
+    if len(lista_productos_mas_vendidos) > cantidad_maxima_productos:
+        lista_productos_mas_vendidos = lista_productos_mas_vendidos[:cantidad_maxima_productos]
+
+    return lista_productos_mas_vendidos
+
 
 def obtener_clientes_mas_gastadores(archivo, cantidad_maxima_clientes):
     ''' Devuelve una lista de tuplas de tamaño pasado por parámetro que 
     representan los clientes que más gastaron, conteniendo como primer 
     elemento el nombre del cliente y como segundo elemento el monto gastado.   
     '''
-   
-    
-    raise NotImplementedError 
 
+    archivo_csv = obtener_reader(archivo)
+
+    lista_clientes = {}
+    lista_clientes_mas_gastadores = []
+
+    headers = next(archivo_csv)
+    campo_cliente = obtener_indice(headers, "CLIENTE")
+    campo_precio = obtener_indice(headers, "PRECIO")
+
+    #se genera un dict con todos los clientes y monto gastado total
+    for row in archivo_csv:
+        if row[campo_cliente] not in lista_clientes:
+            lista_clientes[row[campo_cliente]] = float(row[campo_precio])
+        else:
+            lista_clientes[row[campo_cliente]] += float(row[campo_precio])
+
+    #se separa el dict en tuplas y se une de nuevo en una lista
+    for item in lista_clientes.items():
+        lista_clientes_mas_gastadores.append(item)
+
+    #orden de la lista ascendente y de mayor a menor
+    lista_clientes_mas_gastadores = sorted(lista_clientes_mas_gastadores,key=itemgetter(0))
+    lista_clientes_mas_gastadores = sorted(lista_clientes_mas_gastadores,key=itemgetter(1), reverse = True)
+
+    #chequeo la cantidad maxima de productos a mostrar
+    if len(lista_clientes_mas_gastadores) > cantidad_maxima_clientes:
+        lista_clientes_mas_gastadores = lista_clientes_mas_gastadores[:cantidad_maxima_clientes]
+
+    return lista_clientes_mas_gastadores

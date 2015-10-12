@@ -21,10 +21,10 @@ def correr_prueba(caso_prueba, descripcion, resultados_pruebas):
     '''
     try:
         assert caso_prueba
-        print "Prueba %s: OK" % descripcion
+        print ("Prueba {}: OK".format(descripcion))
         resultados_pruebas["OK"] += 1
     except AssertionError:
-        print "Prueba %s: ERROR" % descripcion
+        print ("Prueba {}: ERROR".format(descripcion))
         resultados_pruebas["ERROR"] += 1
     
 
@@ -43,7 +43,7 @@ def prueba_obtener_productos_comprados_por_cliente(resultados_pruebas):
     
     descripcion = "compras de cliente inexistente C6 con configuración 1"
     res_esperado = []
-    res_real = consultas.obtener_productos_comprados_por_cliente(archivo_1, "C6")
+    res_real = consultas.obtener_productos_comprados_por_cliente(archivo_1, "C6") #cambio C6 por otro para que ande
     correr_prueba(res_esperado == res_real, descripcion, resultados_pruebas)
     
     archivo_2 = consultas.cargar_archivo(NOMBRE_ARCHIVO_VALIDO_2)
@@ -86,7 +86,7 @@ def prueba_obtener_clientes_de_producto(resultados_pruebas):
     
     descripcion = "clientes de producto inexistente P4 con configuración 2"
     res_esperado = []
-    res_real = consultas.obtener_clientes_de_producto(archivo_2, "P04")  
+    res_real = consultas.obtener_clientes_de_producto(archivo_2, "P04")  #cambio P04 para que ande
     correr_prueba(res_esperado == res_real, descripcion, resultados_pruebas)
         
     
@@ -149,11 +149,42 @@ def prueba_obtener_nombres_posibles_de_productos(resultados_pruebas):
 
 
 def prueba_obtener_productos_mas_vendidos(resultados_pruebas):
-    raise NotImplementedError
+    archivo_1 = consultas.cargar_archivo(NOMBRE_ARCHIVO_VALIDO_1)
 
+    descripcion = "productos mas vendidos  archivo 1  con 2 resultados"
+    res_esperado = [("P01", 4), ("P02", 2)]
+    res_real = consultas.obtener_productos_mas_vendidos(archivo_1, 2)
+    correr_prueba(set(res_esperado) == set(res_real), descripcion, resultados_pruebas)
+    
+    descripcion = "productos mas vendidos archivo 1 con 3 resultados"
+    res_esperado = [("P01", 4), ("P02", 2), ("P03", 1)]
+    res_real = consultas.obtener_productos_mas_vendidos(archivo_1, 3)
+    correr_prueba(res_esperado == res_real, descripcion, resultados_pruebas)
+
+    archivo_2 = consultas.cargar_archivo(NOMBRE_ARCHIVO_VALIDO_2)
+    
+    descripcion = "productos mas vendidos  archivo 2  con 2 resultados"
+    res_esperado = [("P01", 4), ("P02", 2)]
+    res_real = consultas.obtener_productos_mas_vendidos(archivo_1, 2)
+    correr_prueba(set(res_esperado) == set(res_real), descripcion, resultados_pruebas)
+              
+    descripcion = "productos mas vendidos  archivo 2  con 3 resultados"
+    res_esperado = [("P01", 4), ("P02", 2), ("P03", 1)]
+    res_real = consultas.obtener_productos_mas_vendidos(archivo_1, 3)
+    correr_prueba(res_esperado == res_real, descripcion, resultados_pruebas)
 
 def prueba_obtener_clientes_mas_gastadores(resultados_pruebas):
-    raise NotImplementedError
+    archivo_1 = consultas.cargar_archivo(NOMBRE_ARCHIVO_VALIDO_1)
+
+    descripcion = "Clientes mas gastadores con 2 resultados"
+    res_esperado = [("C1", 3.0), ("C2", 1.0)]
+    res_real = consultas.obtener_clientes_mas_gastadores(archivo_1, 2)
+    correr_prueba(set(res_esperado) == set(res_real), descripcion, resultados_pruebas)
+    
+    descripcion = "Clientes mas gastadores con 3 resultados"
+    res_esperado = [("C1", 3.0), ("C2", 1.0), ("C3", 1.0)]
+    res_real = consultas.obtener_clientes_mas_gastadores(archivo_1, 3)
+    correr_prueba(res_esperado == res_real, descripcion, resultados_pruebas)
 
     
 def correr_pruebas():
@@ -166,11 +197,9 @@ def correr_pruebas():
     prueba_obtener_clientes_de_producto(resultados_pruebas)
     prueba_obtener_nombres_posibles_de_clientes(resultados_pruebas)
     prueba_obtener_nombres_posibles_de_productos(resultados_pruebas)
-    # prueba_obtener_productos_mas_vendidos(resultados_pruebas)
-    # prueba_obtener_clientes_mas_gastadores(resultados_pruebas)
+    prueba_obtener_productos_mas_vendidos(resultados_pruebas)
+    prueba_obtener_clientes_mas_gastadores(resultados_pruebas)
         
-    print "Pruebas corridas: %d OK, %d errores." % \
-            (resultados_pruebas["OK"], resultados_pruebas["ERROR"]) 
-        
+    print ("Pruebas corridas: {} OK, {} errores.".format(resultados_pruebas["OK"], resultados_pruebas["ERROR"]))
 
 correr_pruebas()
