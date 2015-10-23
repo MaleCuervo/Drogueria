@@ -2,6 +2,8 @@
 
 import csv
 import sys
+import math
+
 from operator import itemgetter
 
 def obtener_indice(headers, nombre_indice):
@@ -29,7 +31,7 @@ def cargar_archivo(nombre_archivo):
         •Que algún registro tenga una cantidad inválida de campos,
         •Que algún campo de CODIGO no sea vacío,
         •Que algún campo de CANTIDAD no contenga un número entero, 
-        •Que algún campo de PRECIO no contenga un valor decimal FALTA
+        •Que algún campo de PRECIO no contenga un valor decimal
     '''
     
     #chequea que el archivo exista,trata de abrir el archivo, si no puede devuelve error y sale del programa 
@@ -64,7 +66,11 @@ def cargar_archivo(nombre_archivo):
 
             #chequea que el campo cantidad sea un entero 
             try:
-                row[campo_cantidad] = int(row[campo_cantidad])
+                if row[campo_cantidad][-3:] == ".00":
+                    row[campo_cantidad] = row[campo_cantidad].strip(".00")
+                    row[campo_cantidad] = int(row[campo_cantidad])
+                else:
+                    row[campo_cantidad] = int(row[campo_cantidad])
             except:
                 raise ValueError ("La cantidad no puede ser decimal ni un texto", row)
 
@@ -73,7 +79,7 @@ def cargar_archivo(nombre_archivo):
                 row[campo_precio] = float(row[campo_precio])
             except:
                 raise ValueError ("El precio no puede ser una cadena de texto", row)
-
+        
         return archivo
         archivo.close()
 
@@ -230,8 +236,14 @@ def obtener_productos_mas_vendidos(archivo, cantidad_maxima_productos):
     #se genera un dict con todos los productos y cantidad total
     for row in archivo_csv:
         if row[campo_producto] not in lista_productos:
+            if row[campo_cantidad][-3:] == ".00":
+                row[campo_cantidad] = row[campo_cantidad].strip(".00")
+                row[campo_cantidad] = int(row[campo_cantidad])
             lista_productos[row[campo_producto]] = int(row[campo_cantidad])
         else:
+            if row[campo_cantidad][-3:] == ".00":
+                row[campo_cantidad] = row[campo_cantidad].strip(".00")
+                row[campo_cantidad] = int(row[campo_cantidad])
             lista_productos[row[campo_producto]] += int(row[campo_cantidad])
 
     #se separa el dict en tuplas y se une de nuevo en una lista

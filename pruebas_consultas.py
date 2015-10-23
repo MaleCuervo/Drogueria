@@ -43,7 +43,7 @@ def prueba_obtener_productos_comprados_por_cliente(resultados_pruebas):
     
     descripcion = "compras de cliente inexistente C6 con configuración 1"
     res_esperado = []
-    res_real = consultas.obtener_productos_comprados_por_cliente(archivo_1, "C6") #cambio C6 por otro para que ande
+    res_real = consultas.obtener_productos_comprados_por_cliente(archivo_1, "C6") 
     correr_prueba(res_esperado == res_real, descripcion, resultados_pruebas)
     
     archivo_2 = consultas.cargar_archivo(NOMBRE_ARCHIVO_VALIDO_2)
@@ -86,7 +86,7 @@ def prueba_obtener_clientes_de_producto(resultados_pruebas):
     
     descripcion = "clientes de producto inexistente P4 con configuración 2"
     res_esperado = []
-    res_real = consultas.obtener_clientes_de_producto(archivo_2, "P04")  #cambio P04 para que ande
+    res_real = consultas.obtener_clientes_de_producto(archivo_2, "P04")
     correr_prueba(res_esperado == res_real, descripcion, resultados_pruebas)
         
     

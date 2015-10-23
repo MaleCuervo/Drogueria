@@ -9,7 +9,6 @@ def obtener_nombre_archivo():
     actual del sistema.
     '''
     
-    
     return "resultados_" + time.strftime("%m%d_%H%M%S") + ".txt"
         
         
@@ -22,42 +21,14 @@ def exportar_resultados(resultados, cabecera, descripcion):
     tuplas.
         Devuelve el nombre del archivo que se grabó.   
     '''
-    # primera consulta
-    Mostrar los n productos más vendidos 
-    
-    Descripcion = estos son los  productos más vendidos 
-    Cabecera = ("CLIENTE","PRODUCTO","CODIGO","CANTIDAD","PRECIO")
-    Resultados = [Cabecera]
-    
-    
-    #segunda consulta
-    Mostrar los n clientes que más gastaron
-    
-    Descripcion = estos son los  clientes que mas gastaron
-    Cabecera = ("CLIENTE","PRODUCTO","CODIGO","CANTIDAD","PRECIO")
-    Resultados = [Cabecera]
-    
-        
-        
-    #terceera consulta    
-    Mostrar los productos comprados por un cliente
-       
-    Descripcion = estos son los  productos comprados por un cliente
-    Cabecera = ("CLIENTE","PRODUCTO","CODIGO","CANTIDAD","PRECIO")
-    Resultados = [Cabecera]
-       
-       
-       
-     #cuarta consulta
-    Mostrar los clientes que compraron un producto
-     
-    Descripcion = estos son los  clientes que compraron un producto
-    Cabecera = ("CLIENTE","PRODUCTO","CODIGO","CANTIDAD","PRECIO")
-    Resultados = [Cabecera]
-             
-            
-        
-        
-    
-    raise NotImplementedError
+    archivo_nuevo = open(obtener_nombre_archivo(), 'a')
+    #archivo_nuevo.write(descripcion)
+    #for t in cabecera:
+    #    archivo_nuevo.write(t + '\n')
+    #archivo_nuevo.writelines(cabecera) 
+    #archivo_nuevo.writelines(resultados)  
+    archivo_nuevo.close()
+
+    return obtener_nombre_archivo()
+    #raise NotImplementedError
         

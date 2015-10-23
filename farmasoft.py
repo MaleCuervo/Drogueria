@@ -24,7 +24,7 @@ def consultar_productos_mas_vendidos(archivo):
     Se le solicita al usuario la cantidad de productos que quiere listar.
     '''
     # Obtiene la cantidad a mostrar.
-    print "Ingrese la cantidad de productos a listar [1-%d]." % CANT_MAX_RESULTADOS
+    print ("Ingrese la cantidad de productos a listar {}.".format(CANT_MAX_RESULTADOS))
     cant_productos = interaccion_usuario.ingresar_numero(1, CANT_MAX_RESULTADOS)
     resultados = consultas.obtener_productos_mas_vendidos(archivo, cant_productos)
     
@@ -32,10 +32,9 @@ def consultar_productos_mas_vendidos(archivo):
     #   documentación de la función del módulo salida_resultados.
     titulo_consulta = "%d productos más vendidos" % cant_productos
     cabecera = ("Producto", "Cantidad de ventas")
-    nombre_salida = \
-        salida_resultados.exportar_resultados(resultados, cabecera, titulo_consulta)
+    nombre_salida = salida_resultados.exportar_resultados(resultados, cabecera, titulo_consulta)
     
-    print "Resultados exportados al archivo " + nombre_salida
+    print ("Resultados exportados al archivo ", nombre_salida)
     
 
 def consultar_clientes_mas_gastadores(archivo):
@@ -44,18 +43,18 @@ def consultar_clientes_mas_gastadores(archivo):
     Se le solicita al usuario la cantidad de clientes que quiere listar.
     '''
     # Obtiene la cantidad a mostrar.
-    print "Ingrese la cantidad de clientes a listar [1-%d]." % CANT_MAX_RESULTADOS
+    print ("Ingrese la cantidad de clientes a listar {}".format(CANT_MAX_RESULTADOS))
     cant_clientes = interaccion_usuario.ingresar_numero(1, CANT_MAX_RESULTADOS)
     resultados = consultas.obtener_clientes_mas_gastadores(archivo, cant_clientes)
     
     # Exporta los resultados - se preparan los datos de acuerdo a la 
     #   documentación de la función del módulo salida_resultados.
-    titulo_consulta = "%d clientes más gastadores" % cant_clientes
+    titulo_consulta = "{} clientes más gastadores".format(cant_clientes)
     cabecera = ("Cliente", "Monto gastado")
     nombre_salida = \
         salida_resultados.exportar_resultados(resultados, cabecera, titulo_consulta)
     
-    print "Resultados exportados al archivo " + nombre_salida
+    print ("Resultados exportados al archivo " + nombre_salida)
     
 
 def consultar_productos_comprados_por_cliente(archivo):
@@ -65,13 +64,13 @@ def consultar_productos_comprados_por_cliente(archivo):
     seleccionar el nombre completo de una lista.
     '''
     # Obtiene el nombre del cliente.
-    print "Ingrese parte del nombre del cliente a consultar."
+    print ("Ingrese parte del nombre del cliente a consultar.")
     nombre_parcial = interaccion_usuario.ingresar_cadena_no_vacia()
     nombres_posibles = \
         consultas.obtener_clientes_con_nombre_incompleto(archivo, nombre_parcial)    
         
     if len(nombres_posibles) == 0:
-        print "No se encontraron productos con ese nombre."
+        print ("No se encontraron productos con ese nombre.")
         return
     
     indice_nombre = \
@@ -90,7 +89,7 @@ def consultar_productos_comprados_por_cliente(archivo):
     nombre_salida = \
         salida_resultados.exportar_resultados(resultados, cabecera, titulo_consulta)
     
-    print "Resultados exportados al archivo " + nombre_salida
+    print ("Resultados exportados al archivo " + nombre_salida)
     
 
 def consultar_clientes_de_producto(archivo):
@@ -100,13 +99,13 @@ def consultar_clientes_de_producto(archivo):
     seleccionar el nombre completo de una lista.
     '''
     # Obtiene el nombre del producto.
-    print "Ingrese parte del nombre del producto a consultar."
+    print ("Ingrese parte del nombre del producto a consultar.")
     nombre_parcial = interaccion_usuario.ingresar_cadena_no_vacia()
     nombres_posibles = \
         consultas.obtener_productos_con_nombre_incompleto(archivo, nombre_parcial)
     
     if len(nombres_posibles) == 0:
-        print "No se encontraron productos con ese nombre."
+        print ("No se encontraron productos con ese nombre.")
         return
     
     indice_nombre = interaccion_usuario.mostrar_menu_generico(nombres_posibles, "Cancelar")
@@ -124,25 +123,25 @@ def consultar_clientes_de_producto(archivo):
     nombre_salida = \
         salida_resultados.exportar_resultados(resultados, cabecera, titulo_consulta)
     
-    print "Resultados exportados al archivo " + nombre_salida
+    print ("Resultados exportados al archivo " + nombre_salida)
     
     
 def consulta_ventas():
     ''' Inicia la interfaz con el usuario. Resuelve las consultas usando los
     métodos definidos en el módulo de consultas.
     '''
-    print "Bienvenido a FarmaSoft, el programa líder de consulta de ventas."
+    print ("Bienvenido a FarmaSoft, el programa líder de consulta de ventas.")
     
     try:
         archivo = consultas.cargar_archivo(NOMBRE_ARCHIVO_REGISTROS)
-    except RuntimeError, e:
-        print e
+    except RuntimeError as e:
+        print (e)
         return
     
     seguir_consultando = True
     
     while seguir_consultando:
-        print
+        print()
         seleccion = interaccion_usuario.mostrar_menu_generico(
                 obtener_opciones_menu_principal(), "Salir")
         
@@ -157,7 +156,7 @@ def consulta_ventas():
         elif seleccion == -1:
             seguir_consultando = False
             
-    print "¡Gracias por usar FarmaSoft!"
+    print ("¡Gracias por usar FarmaSoft!")
         
         
 consulta_ventas()

@@ -7,12 +7,12 @@ def ingresar_numero(numero_minimo, numero_maximo):
     Devuelve el número ingresado en formato entero.
     '''
     while True:
-        ingreso = raw_input()
+        ingreso = input()
         if not ingreso.isdigit():
-            print "El ingreso debe ser numérico."
+            print ("El ingreso debe ser numérico.")
         elif not numero_minimo <= int(ingreso) <= numero_maximo:
-            print "El ingreso debe estar entre %d y %d." % \
-                (numero_minimo, numero_maximo)
+            print ("El ingreso debe estar entre {}} y {}.".format(
+                            numero_minimo, numero_maximo))
         else:
             return int(ingreso)
         
@@ -26,7 +26,7 @@ def ingresar_cadena_no_vacia():
     while True:
         ingreso = raw_input()
         if len(ingreso) == 0:
-            print "El ingreso no debe ser vacío."
+            print ("El ingreso no debe ser vacío.")
         else:
             return ingreso.upper()
             
@@ -44,11 +44,11 @@ def mostrar_menu_generico(opciones, opcion_por_defecto):
     selecciona un elemento de la lista de opciones, devuelve su índice. Si
     selecciona la opción por defecto, devuelve -1.
     '''    
-    print "Seleccione una opción:"
+    print ("Seleccione una opción:")
     for numero_opcion in range(len(opciones)):
-        print "%d. %s." % (numero_opcion + 1, opciones[numero_opcion])    
-    print "%d. %s." % (len(opciones) + 1, opcion_por_defecto)
-    print 
+        print ("{}. {}.".format(numero_opcion + 1, opciones[numero_opcion]))    
+    print ("{}. {}.".format(len(opciones) + 1, opcion_por_defecto))
+    print() 
     
     seleccion = ingresar_numero(1, len(opciones) + 1)
     
