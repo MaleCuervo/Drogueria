@@ -1,4 +1,4 @@
-#encoding: latin1
+#encoding: utf-8
 
 import interaccion_usuario
 import consultas

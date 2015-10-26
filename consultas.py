@@ -1,4 +1,4 @@
-#encoding: latin1
+#encoding: utf-8
 
 import csv
 import sys
@@ -119,6 +119,7 @@ def obtener_clientes_con_nombre_incompleto(archivo, nombre_cliente_incompleto):
         #devuelve lista final con todos los posibles nombres
         return nombre_cliente_buscado
 
+    archivo_csv.close()
 
 def obtener_productos_con_nombre_incompleto(archivo, nombre_producto_incompleto):
     ''' Dado el contenido del archivo de datos y un nombre de producto 
@@ -149,7 +150,7 @@ def obtener_productos_con_nombre_incompleto(archivo, nombre_producto_incompleto)
     else:
         #devuelve lista final con todos los posibles nombres
         return nombre_producto_buscado
-    
+    archivo_csv.close()
     
 def obtener_productos_comprados_por_cliente(archivo, nombre_cliente):
     ''' Dado el contenido del archivo de datos y el nombre de un cliente, 
@@ -183,7 +184,7 @@ def obtener_productos_comprados_por_cliente(archivo, nombre_cliente):
         #devuelve lista final con todos los productos comprados por el nombre indicado
         return productos_comprados 
    
-     
+    archivo_csv.close()
 
 def obtener_clientes_de_producto(archivo, nombre_producto):
     ''' Dado el contenido del archivo de datos y el nombre de un producto, 
@@ -215,7 +216,7 @@ def obtener_clientes_de_producto(archivo, nombre_producto):
     else:
         #devuelve lista final con todos los clientes que compraron ese producto
         return clientes_producto 
-    
+    archivo_csv.close()
     
     
 def obtener_productos_mas_vendidos(archivo, cantidad_maxima_productos):
@@ -258,7 +259,7 @@ def obtener_productos_mas_vendidos(archivo, cantidad_maxima_productos):
         lista_productos_mas_vendidos = lista_productos_mas_vendidos[:cantidad_maxima_productos]
 
     return lista_productos_mas_vendidos
-
+    archivo_csv.close()
 
 def obtener_clientes_mas_gastadores(archivo, cantidad_maxima_clientes):
     ''' Devuelve una lista de tuplas de tamaño pasado por parámetro que 
@@ -294,4 +295,5 @@ def obtener_clientes_mas_gastadores(archivo, cantidad_maxima_clientes):
     if len(lista_clientes_mas_gastadores) > cantidad_maxima_clientes:
         lista_clientes_mas_gastadores = lista_clientes_mas_gastadores[:cantidad_maxima_clientes]
 
-    return lista_clientes_mas_gastadores
+    return lista_clientes_mas_gastadores    
+    archivo_csv.close()

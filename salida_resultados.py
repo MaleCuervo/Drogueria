@@ -1,4 +1,4 @@
-#encoding: latin1
+#encoding: utf-8
 
 import time
 import os
@@ -22,11 +22,22 @@ def exportar_resultados(resultados, cabecera, descripcion):
         Devuelve el nombre del archivo que se grabó.   
     '''
     archivo_nuevo = open(obtener_nombre_archivo(), 'a')
-    #archivo_nuevo.write(descripcion)
-    #for t in cabecera:
-    #    archivo_nuevo.write(t + '\n')
-    #archivo_nuevo.writelines(cabecera) 
-    #archivo_nuevo.writelines(resultados)  
+
+    titulos = ""
+    super_cadena = ""
+
+    for resultado in resultados:
+        super_cadena = super_cadena + '\n' + str(resultado)
+        
+    super_cadena = super_cadena.replace("(","")
+    super_cadena = super_cadena.replace(")","")
+
+    for titulo in cabecera:
+        titulos = titulos+','+ titulo
+    titulos = titulos[1:]
+
+    archivo_nuevo.write(descripcion + '\n\n' + titulos + '\n' + super_cadena)
+
     archivo_nuevo.close()
 
     return obtener_nombre_archivo()

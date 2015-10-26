@@ -1,4 +1,4 @@
-#encoding: latin1
+#encoding: utf-8
 
 def ingresar_numero(numero_minimo, numero_maximo):
     ''' Muestra un cursor de ingreso al usuario para que ingrese un número
@@ -24,7 +24,7 @@ def ingresar_cadena_no_vacia():
     Devuelve la cadena ingresada, en mayúsculas.
     '''
     while True:
-        ingreso = raw_input()
+        ingreso = input()
         if len(ingreso) == 0:
             print ("El ingreso no debe ser vacío.")
         else:
