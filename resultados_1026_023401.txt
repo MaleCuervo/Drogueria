@@ -1,0 +1,5 @@
+3, ,p,r,o,d,u,c,t,o,s, ,m,á,s, ,v,e,n,d,i,d,o,s
+Producto,Cantidad de ventas
+ONDANSETRON MARTIAN 8 AA 1,493
+EPREX 2000 FRA1,392
+DIEMON 20 CM 30,330

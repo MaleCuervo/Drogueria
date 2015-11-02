@@ -3,7 +3,6 @@
 import csv
 import sys
 import math
-
 from operator import itemgetter
 
 def obtener_indice(headers, nombre_indice):
@@ -23,7 +22,6 @@ def obtener_reader(archivo):
     archivo.seek(0)
     return csv.reader(archivo)
 
-#función hecha por M.Alejandra y Eliana
 def cargar_archivo(nombre_archivo):
     ''' Recibe el nombre de un archivo y:
         •Chequea que el archivo exista,

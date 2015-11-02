@@ -1,5 +1,5 @@
 #encoding: utf-8
-
+import csv
 import time
 import os
 
@@ -21,25 +21,15 @@ def exportar_resultados(resultados, cabecera, descripcion):
     tuplas.
         Devuelve el nombre del archivo que se grabó.   
     '''
-    archivo_nuevo = open(obtener_nombre_archivo(), 'a')
+    try:
+        with open(obtener_nombre_archivo(), 'w', newline='') as archivo_nuevo:
+            writer = csv.writer(archivo_nuevo)
+            writer.writerow([descripcion])
+            writer.writerow(cabecera)
+            writer.writerows(resultados)
 
-    titulos = ""
-    super_cadena = ""
-
-    for resultado in resultados:
-        super_cadena = super_cadena + '\n' + str(resultado)
-        
-    super_cadena = super_cadena.replace("(","")
-    super_cadena = super_cadena.replace(")","")
-
-    for titulo in cabecera:
-        titulos = titulos+','+ titulo
-    titulos = titulos[1:]
-
-    archivo_nuevo.write(descripcion + '\n\n' + titulos + '\n' + super_cadena)
-
-    archivo_nuevo.close()
-
-    return obtener_nombre_archivo()
-    #raise NotImplementedError
+        archivo_nuevo.close()    
+        return obtener_nombre_archivo()
+    except IOError:
+        print ("No se pudo guardar el archivo")
         
